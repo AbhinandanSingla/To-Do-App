@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hivedatabase/ColorProvider.dart';
 import 'package:hivedatabase/mainscreen.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<DtPicker>(
           create: (context) => DtPicker(),
+        ),
+        ChangeNotifierProvider<SelectedCategory>(
+          create: (context) => SelectedCategory(),
         ),
       ],
       child: MaterialApp(

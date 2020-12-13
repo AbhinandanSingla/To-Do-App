@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hivedatabase/ColorProvider.dart';
 import 'package:provider/provider.dart';
 
 import 'DTPicker.dart';
@@ -23,13 +24,17 @@ class _CreateTaskState extends State<CreateTask> {
   String priority;
   final title = TextEditingController();
   final description = TextEditingController();
+  int selectedindex = 0;
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+    SelectedCategory colorchange = Provider.of<SelectedCategory>(context);
     Size size = MediaQuery.of(context).size;
     DtPicker picker = Provider.of<DtPicker>(context);
     final task = Hive.box('tasks');
     return Scaffold(
+      key: globalKey,
       backgroundColor: Colors.purpleAccent,
       body: SafeArea(
         child: Form(
@@ -132,6 +137,8 @@ class _CreateTaskState extends State<CreateTask> {
                       children: [
                         InkWell(
                           onTap: () {
+                            selectedindex =
+                                colorchange.selectedCategory(0, selectedindex);
                             priority = 'urgent';
                           },
                           child: Container(
@@ -141,12 +148,19 @@ class _CreateTaskState extends State<CreateTask> {
                             decoration: BoxDecoration(
                                 color: Colors.red.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.red)),
+                                border: Border.all(
+                                  color: selectedindex != null &&
+                                      selectedindex == 0
+                                      ? Colors.black
+                                      : Colors.grey,
+                                )),
                           ),
                         ),
                         InkWell(
                           onTap: () {
                             priority = 'future';
+                            selectedindex =
+                                colorchange.selectedCategory(1, selectedindex);
                           },
                           child: Container(
                             child: Center(child: Text('future')),
@@ -155,12 +169,19 @@ class _CreateTaskState extends State<CreateTask> {
                             decoration: BoxDecoration(
                                 color: Colors.blue.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.blue)),
+                                border: Border.all(
+                                  color: selectedindex != null &&
+                                      selectedindex == 1
+                                      ? Colors.black
+                                      : Colors.grey,
+                                )),
                           ),
                         ),
                         InkWell(
                           onTap: () {
                             priority = 'later';
+                            selectedindex =
+                                colorchange.selectedCategory(2, selectedindex);
                           },
                           child: Container(
                             child: Center(child: Text('later')),
@@ -169,7 +190,12 @@ class _CreateTaskState extends State<CreateTask> {
                             decoration: BoxDecoration(
                                 color: Colors.green.withOpacity(0.5),
                                 borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: Colors.green)),
+                                border: Border.all(
+                                  color: selectedindex != null &&
+                                      selectedindex == 2
+                                      ? Colors.black
+                                      : Colors.grey,
+                                )),
                           ),
                         )
                       ],
@@ -187,8 +213,8 @@ class _CreateTaskState extends State<CreateTask> {
                             print('Data added');
                             Navigator.of(context).pop();
                           } else {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              backgroundColor: Colors.purple.withOpacity(0.5),
+                            globalKey.currentState.showSnackBar(SnackBar(
+                              backgroundColor: Colors.grey.withOpacity(0.5),
                               content: Text('Fill all boxes'),
                             ));
                           }
@@ -198,9 +224,9 @@ class _CreateTaskState extends State<CreateTask> {
                           height: 60,
                           child: Center(
                               child: Text(
-                            'Create a Task',
-                            style: TextStyle(color: Colors.white),
-                          )),
+                                'Create a Task',
+                                style: TextStyle(color: Colors.white),
+                              )),
                           decoration: BoxDecoration(
                               color: Colors.purple,
                               borderRadius: BorderRadius.circular(10)),
