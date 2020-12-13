@@ -13,6 +13,22 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    Color priority;
+    switch (widget.task['priority']) {
+      case 'urgent':
+        priority = Colors.red;
+        break;
+      case 'later':
+        priority = Colors.green;
+        break;
+      case 'future':
+        priority = Colors.blue;
+        break;
+      default:
+        priority = Colors.white;
+        break;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -41,12 +57,12 @@ class _ProductScreenState extends State<ProductScreen> {
               flex: 1,
             ),
             Text(widget.task['title']),
+            Spacer(
+              flex: 1,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Spacer(
-                  flex: 1,
-                ),
                 Text('${widget.task['date']} || ${widget.task['time']}'),
                 Spacer(
                   flex: 1,
@@ -57,13 +73,12 @@ class _ProductScreenState extends State<ProductScreen> {
                   width: size.width * 0.2 - 10,
                   child: Center(
                       child: Text(
-                    '',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  )),
+                        widget.task['priority'],
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
                   decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(20)),
+                      color: priority, borderRadius: BorderRadius.circular(20)),
                 )
               ],
             ),
@@ -73,7 +88,16 @@ class _ProductScreenState extends State<ProductScreen> {
             Text(widget.task['description']),
             Spacer(
               flex: 4,
-            )
+            ),
+            FlatButton(
+                onPressed: () {},
+                child: Container(
+                    height: 40,
+                    width: size.width * 0.8,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Center(child: Text('Done'))))
           ],
         ),
       )),
