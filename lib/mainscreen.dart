@@ -153,6 +153,8 @@ class _MainScreenState extends State<MainScreen>
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext coxtext) => ProductScreen(
+                              taskMode: 'To-do',
+                              index: index,
                               task: abc,
                             )));
                   },
@@ -316,52 +318,63 @@ class _MainScreenState extends State<MainScreen>
                 key: UniqueKey(),
                 background: Container(),
                 secondaryBackground: slideRightBackground(),
-                child: Container(
-                    padding: EdgeInsets.only(left: 20),
-                    height: 80,
-                    margin: EdgeInsets.only(top: 20),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              offset: Offset(0, 0),
-                              blurRadius: 12)
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(abc['title']),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Text(abc['time']),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10, right: 10),
-                              height: 20,
-                              width: size.width * 0.2 - 10,
-                              child: Center(
-                                  child: Text(
-                                abc['priority'],
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                              decoration: BoxDecoration(
-                                  color: priority,
-                                  borderRadius: BorderRadius.circular(20)),
-                            )
-                          ],
-                        )
-                      ],
-                    )),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext coxtext) =>
+                            ProductScreen(
+                              taskMode: 'doneTask',
+                              index: index,
+                              task: abc,
+                            )));
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(left: 20),
+                      height: 80,
+                      margin: EdgeInsets.only(top: 20),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                offset: Offset(0, 0),
+                                blurRadius: 12)
+                          ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(abc['title']),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(abc['time']),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 10, right: 10),
+                                height: 20,
+                                width: size.width * 0.2 - 10,
+                                child: Center(
+                                    child: Text(
+                                      abc['priority'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                decoration: BoxDecoration(
+                                    color: priority,
+                                    borderRadius: BorderRadius.circular(20)),
+                              )
+                            ],
+                          )
+                        ],
+                      )),
+                ),
               );
             },
           ),
