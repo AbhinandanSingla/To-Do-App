@@ -61,7 +61,12 @@ class _MainScreenState extends State<MainScreen>
           style: TextStyle(),
         ),
         elevation: 0,
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: null),
+        leading: IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: null),
         bottom: TabBar(
           indicatorColor: Colors.purple,
           controller: tabcontroller,
@@ -321,8 +326,7 @@ class _MainScreenState extends State<MainScreen>
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext coxtext) =>
-                            ProductScreen(
+                        builder: (BuildContext coxtext) => ProductScreen(
                               taskMode: 'doneTask',
                               index: index,
                               task: abc,

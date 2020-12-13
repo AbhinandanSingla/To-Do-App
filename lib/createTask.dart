@@ -49,7 +49,7 @@ class _CreateTaskState extends State<CreateTask> {
                       children: [
                         IconButton(
                             icon: Icon(Icons.chevron_left),
-                            onPressed: () => Navigator.of(context).pop)
+                            onPressed: () => Navigator.of(context).pop())
                       ],
                     ),
                     Padding(
@@ -224,9 +224,9 @@ class _CreateTaskState extends State<CreateTask> {
                           height: 60,
                           child: Center(
                               child: Text(
-                                'Create a Task',
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            'Create a Task',
+                            style: TextStyle(color: Colors.white),
+                          )),
                           decoration: BoxDecoration(
                               color: Colors.purple,
                               borderRadius: BorderRadius.circular(10)),
