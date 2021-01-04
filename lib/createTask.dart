@@ -25,13 +25,16 @@ class _CreateTaskState extends State<CreateTask> {
   final title = TextEditingController();
   final description = TextEditingController();
   int selectedindex = 0;
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
     SelectedCategory colorchange = Provider.of<SelectedCategory>(context);
     Size size = MediaQuery.of(context).size;
     DtPicker picker = Provider.of<DtPicker>(context);
+    setDate = picker.dateController.text;
+    setTime = picker.timeController.text;
+    priority = 'urgent';
     final task = Hive.box('tasks');
     return Scaffold(
       key: globalKey,
@@ -150,7 +153,7 @@ class _CreateTaskState extends State<CreateTask> {
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: selectedindex != null &&
-                                      selectedindex == 0
+                                          selectedindex == 0
                                       ? Colors.black
                                       : Colors.grey,
                                 )),
@@ -171,7 +174,7 @@ class _CreateTaskState extends State<CreateTask> {
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: selectedindex != null &&
-                                      selectedindex == 1
+                                          selectedindex == 1
                                       ? Colors.black
                                       : Colors.grey,
                                 )),
@@ -192,7 +195,7 @@ class _CreateTaskState extends State<CreateTask> {
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: selectedindex != null &&
-                                      selectedindex == 2
+                                          selectedindex == 2
                                       ? Colors.black
                                       : Colors.grey,
                                 )),
@@ -213,6 +216,10 @@ class _CreateTaskState extends State<CreateTask> {
                             print('Data added');
                             Navigator.of(context).pop();
                           } else {
+                            // task.deleteAt(0);
+                            // task.deleteAt(1);
+                            print(picker.dateController.text);
+                            print(picker.timeController.text);
                             globalKey.currentState.showSnackBar(SnackBar(
                               backgroundColor: Colors.grey.withOpacity(0.5),
                               content: Text('Fill all boxes'),
